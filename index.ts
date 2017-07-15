@@ -1,30 +1,33 @@
+type HttpResponse = {
+  status?: number;
+  body?: string;
+};
+type HttpState = { req: any; res: HttpResponse; error?: string };
+type Handler = (s: HttpState) => HttpState;
 
-type HError = { type: 'error', message: string };
-type HttpState = { type: 'request', req, res}; 
-type Handler = (s:HttpState) => HttpState | HError;
-
-
-export function get(path:string, h:Handler):Handler {
-    return ({type, req, res}) => {
-        if (req.method === 'GET' && req.path.indexOf(path) === 0) {
-            return h({type, req, res});
-        } else {
-            return {type: 'error', message: 'Not a GET ' + path}
-        }
-    }
+export function isError(s: HttpState): boolean {
+  return Boolean(!s || s.error);
 }
 
-export function first(...handlers: Array<Handler>):Handler {
-    return ({type, req, res}) => {
-        for (let i = 0; i < handlers.length; i++) {
-            let h = handlers[i];
-            const r = h({ type, req, res})
-            if (r && r.type !== 'error') {
-                return r;
-            }
-        }
-        return {type: 'error', message: 'No handler matched'}
+export function get(path: string, h: Handler): Handler {
+  return ({ req, res }) => {
+    if (req.method === "GET" && req.path.indexOf(path) === 0) {
+      return h({ req, res });
+    } else {
+      return { req, res, error: "Not a GET " + path };
     }
+  };
 }
 
-
+export function first(...handlers: Array<Handler>): Handler {
+  return ({ req, res }) => {
+    for (let i = 0; i < handlers.length; i++) {
+      let h = handlers[i];
+      const r = h({ req, res });
+      if (!isError(r)) {
+        return r;
+      }
+    }
+    return { req, res, error: "No handler matched first()" };
+  };
+}
