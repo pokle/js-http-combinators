@@ -1,12 +1,13 @@
 import { get } from ".";
 
+const HTTPOK = ({ req, res }) => ({
+  req,
+  res: { status: 200, body: "OK" }
+});
+
 describe("index", () => {
   it("should match a GET /hi request", () => {
-    const handler = get("/hi", ({ req, res }) => ({
-      type: "request",
-      req,
-      res: { status: 200 }
-    }));
+    const handler = get("/hi", HTTPOK);
     const req = {
       type: "request",
       req: { method: "GET", path: "/hi" },
@@ -14,17 +15,12 @@ describe("index", () => {
     };
     expect(handler(req)).toEqual({
       req: { method: "GET", path: "/hi" },
-      res: { status: 200 },
-      type: "request"
+      res: { status: 200, body: "OK" }
     });
   });
 
   it("shouldn't match a GET /xxx request", () => {
-    const handler = get("/hi", ({ req, res }) => ({
-      type: "request",
-      req,
-      res: { status: 200 }
-    }));
+    const handler = get("/hi", HTTPOK);
     const req = {
       type: "request",
       req: { method: "GET", path: "/xxx" },
