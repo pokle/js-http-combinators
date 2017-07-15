@@ -9,7 +9,6 @@ describe("index", () => {
   it("should match a GET /hi request", () => {
     const handler = get("/hi", HTTPOK);
     const req = {
-      type: "request",
       req: { method: "GET", path: "/hi" },
       res: {}
     };
@@ -22,7 +21,6 @@ describe("index", () => {
   it("shouldn't match a GET /xxx request", () => {
     const handler = get("/hi", HTTPOK);
     const req = {
-      type: "request",
       req: { method: "GET", path: "/xxx" },
       res: {}
     };
