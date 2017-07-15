@@ -1,3 +1,3 @@
 # js-http-combinators
 
-An experiment to see if a functiona combinator DSL works for javascript http server handlers
+An experiment to see if functional combinators make a pretty HTTP handler DSL
