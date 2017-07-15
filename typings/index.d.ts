@@ -1,1 +1,1 @@
-/// <reference path="modules/express/index.d.ts" />
+/// <reference path="globals/jest/index.d.ts" />
