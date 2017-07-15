@@ -7,7 +7,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache License 2.0",
   "description": "",
   "dependencies": {},
   "devDependencies": {
@@ -15,16 +15,10 @@
     "jest": "20.0.4"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
     "transform": {
       "^.+\\.(ts|tsx)$": "<rootDir>/preprocessor.js"
     },
-    "testMatch": [
-      "**/*.test.(ts|tsx|js)"
-    ]
+    "testMatch": ["**/*.test.(ts|tsx|js)"]
   }
 }
