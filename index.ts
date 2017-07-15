@@ -1,9 +1,9 @@
-type HttpResponse = {
+export type HttpResponse = {
   status?: number;
   body?: string;
 };
-type HttpState = { req: any; res: HttpResponse; error?: string };
-type Handler = (s: HttpState) => HttpState;
+export type HttpState = { req: any; res: HttpResponse; error?: string };
+export type Handler = (s: HttpState) => HttpState;
 
 export function isError(s: HttpState): boolean {
   return Boolean(!s || s.error);
