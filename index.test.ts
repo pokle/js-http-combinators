@@ -29,7 +29,7 @@ describe("index", () => {
     expect(handler(req)).toEqual({
       req: { method: "GET", path: "/xxx" },
       res: {},
-      error: "Not a GET /hi"
+      error: "Expected GET /hi, got GET /xxx"
     });
   });
 });

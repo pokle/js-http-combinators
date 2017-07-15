@@ -14,7 +14,11 @@ export function get(path: string, h: Handler): Handler {
     if (req.method === "GET" && req.path.indexOf(path) === 0) {
       return h({ req, res });
     } else {
-      return { req, res, error: "Not a GET " + path };
+      return {
+        req,
+        res,
+        error: "Expected GET " + path + ", got " + req.method + " " + req.path
+      };
     }
   };
 }
