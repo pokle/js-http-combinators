@@ -48,4 +48,26 @@ describe("first combinator", () => {
       res: { status: 404, body: "NOT FOUND" }
     });
   });
+
+  it("should error on no match when impossible", () => {
+    const handler = first();
+    expect(handler(request("POST", "/whee"))).toEqual({
+      error: "No handler matched first()",
+      req: { method: "POST", path: "/whee" },
+      res: {}
+    });
+  });
+
+  it("should error on no match", () => {
+    const handler = first(
+      get("/hii", HTTPOK),
+      get("/hey", HTTPNOTFOUND),
+      get("/yoo", HTTPOK)
+    );
+    expect(handler(request("POST", "/whee"))).toEqual({
+      error: "No handler matched first()",
+      req: { method: "POST", path: "/whee" },
+      res: {}
+    });
+  });
 });
